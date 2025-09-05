@@ -1,0 +1,365 @@
+/* :rootでサイト全体で使う変数（色やフォント）を定義します */
+:root {
+    --bg-color: #ffffff;      /* 背景色（白） */
+    --text-color: #000000;    /* テキストの色（黒） */
+    
+    --font-heading: 'Shippori Mincho', serif; 
+    --font-body: 'Noto Sans JP', sans-serif;
+}
+
+/* 基本的なページスタイル */
+body {
+    margin: 0;
+    background-color: #ffffff; /* PC表示時の背景色 */
+    color: var(--text-color);
+    font-family: var(--font-body);
+    line-height: 1.8;
+    overflow-x: hidden; /* 横スクロールを防止 */
+}
+
+.site-wrapper {
+    background-color: var(--bg-color);
+}
+
+/* PC表示時の左右の余白とスマホ画面の枠組み */
+@media (min-width: 640px) {
+    .site-wrapper {
+        max-width: 480px; /* スマホ画面の幅にコンテンツを制限 */
+        margin: 0 auto;
+        box-shadow: 0 0 20px rgba(0,0,0,0.1);
+    }
+}
+
+/* --- ヘッダー --- */
+.header {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 100;
+}
+@media (min-width: 640px) {
+    .header {
+        /* PC表示時にコンテンツエリアの右上に配置 */
+        right: calc(50% - 220px); 
+    }
+}
+.hamburger {
+    width: 30px;
+    height: 21px;
+    cursor: pointer;
+    background: none;
+    border: none;
+    position: relative;
+}
+.hamburger span {
+    display: block;
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-color);
+    position: absolute;
+    transition: transform 0.3s, opacity 0.3s;
+}
+.hamburger span:nth-child(1) { top: 0; }
+.hamburger span:nth-child(2) { top: 9px; }
+.hamburger span:nth-child(3) { top: 18px; }
+
+/* ハンバーガーメニューが開いた時のスタイル */
+.hamburger.is-active span:nth-child(1) {
+    top: 9px;
+    transform: rotate(45deg);
+}
+.hamburger.is-active span:nth-child(2) {
+    opacity: 0;
+}
+.hamburger.is-active span:nth-child(3) {
+    top: 9px;
+    transform: rotate(-45deg);
+}
+
+/* SP用ナビゲーション */
+.sp-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+    z-index: 99;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.sp-nav.is-active {
+    transform: translateX(0);
+}
+.sp-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.sp-nav li {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.sp-nav a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 1.8rem;
+    font-family: var(--font-heading);
+}
+
+
+/* --- ヒーローセクション --- */
+.hero {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 上下いっぱいに配置 */
+    align-items: center;
+    padding: 20px;
+    min-height: 90vh;
+}
+.hero__title-group {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 60px; /* 上からの余白 */
+}
+.hero__subtitle-image {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 80px; /* 画像サイズを調整 */
+    height: auto;
+}
+.hero__title {
+    font-family: 'Shippori Mincho', serif;
+    font-weight: 400; /* 細いフォントウェイト */
+    font-size: 2rem; /* 文字サイズを調整 */
+    line-height: 1.7; /* 文字間隔を調整 */
+    margin: 0;
+    display: flex; /* 横並びにする */
+    gap: 1.5em; /* 2行の間のスペース */
+    letter-spacing: 0.2em; /* 文字と文字の間隔を調整 */
+}
+.hero__title span {
+    writing-mode: vertical-rl; /* 縦書き */
+}
+.hero__images {
+    display: flex;
+    gap: 20px;
+    align-items: flex-end;
+    margin-bottom: 20px;
+}
+.hero__image-woman, .hero__image-man {
+    height: 150px;
+    width: auto;
+}
+
+/* --- コンテンツセクション共通 --- */
+.content-section {
+    padding: 60px 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
+    border-top: 1px solid #ddd;
+}
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 40px;
+    text-align: center;
+    position: relative;
+    display: inline-block;
+}
+.section-title::after {
+    content: '';
+    display: block;
+    width: 100%;
+    height: 3px;
+    background-color: #f5d142;
+    margin-top: 8px;
+}
+.section-subtitle {
+    text-align: center;
+    margin-bottom: 40px;
+    line-height: 2;
+}
+
+/* --- CONCEPTセクション --- */
+.concept__mail-image {
+    width: 100%; /* 横幅を画面いっぱいに */
+    height: auto; /* 高さは自動調整 */
+    display: block; /* 画像下の余白を消す */
+}
+
+/* --- GAMESセクション --- */
+#games {
+    text-align: center;
+}
+.games__title {
+    font-family: var(--font-body);
+}
+
+#games .section-subtitle {
+    text-align: left;
+    font-size: 0.95rem;
+}
+.games__images {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    margin: 40px 0;
+    flex-wrap: wrap;
+}
+.games__image {
+    max-width: 30%;
+    height: auto;
+}
+.games__note {
+    font-weight: bold;
+    text-align: center;
+    margin-top: 40px;
+}
+.highlight {
+    background-color: #fffacd;
+    padding: 2px 5px;
+}
+
+/* --- MENUセクション --- */
+#menu {
+    padding-left: 0;
+    padding-right: 0;
+}
+.food-section, .drink-section {
+    text-align: center;
+}
+.drink-section{
+    margin-top: 50px;
+}
+.food-image, .drink-image {
+    max-width: 90%;
+    height: auto;
+    margin: 10px 0;
+}
+
+/* --- TICKETセクション --- */
+#ticket {
+    text-align: center;
+}
+.ticket-image {
+    width: 100%;
+    max-width: 400px;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+.ticket-notes {
+    margin-top: 20px;
+    font-size: 0.8rem;
+    text-align: center;
+    line-height: 1.6;
+}
+.ticket-notes p {
+    margin: 5px 0;
+}
+
+/* --- ACCESSセクション --- */
+#access {
+    text-align: center;
+}
+.access-info {
+    text-align: center;
+    margin-bottom: 30px;
+}
+.access-map {
+    width: 100%;
+    max-width: 400px;
+    display: block;
+    margin: 0 auto;
+    border: 1px solid #eee;
+}
+.access-photos {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 30px;
+}
+.access-photo {
+    width: 48%;
+    max-width: 180px;
+}
+
+/* --- FAQセクション --- */
+#faq {
+    text-align: center;
+}
+.faq-image {
+    width: 100%;
+    max-width: 450px;
+    display: block;
+    margin: 0 auto;
+}
+
+/* --- Footer (Contact) --- */
+.footer {
+    text-align: center;
+}
+.contact-text {
+    margin-bottom: 20px;
+}
+.contact-username {
+    margin-bottom: 20px;
+}
+.contact-insta-link {
+    display: inline-block;
+}
+.contact-insta-icon {
+    width: 50px;
+    height: auto;
+}
+.contact-insta-link {
+    display: inline-block;
+    margin-bottom: 20px; /* アイコンとボタンの間に余白を追加 */
+}
+.document-request-text {
+    margin-bottom: 30px;
+}
+
+.request-button {
+    padding: 15px 40px;
+    text-decoration: none;
+    color: var(--text-color);
+    background-color: #fff;
+    border: 1px solid var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+}
+.request-button:hover {
+    background-color: var(--text-color);
+    color: #fff;
+}
+
+/* --- Document Request Section (New) --- */
+#document-request {
+    text-align: center;
+}
+.document-request-text {
+    margin-bottom: 30px;
+}
+
+
+
+.request-button:hover {
+    background-color: var(--text-color);
+    color: #fff;
+}
+
+
+
+
+
+
+
+
