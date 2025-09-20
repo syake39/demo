@@ -1,41 +1,25 @@
-// このスクリプトは、スクロールに応じて要素をフェードインさせるためのものです
+// ハンバーガーメニューの開閉
+const hamburger = document.getElementById('hamburger');
+const spNav = document.getElementById('sp-nav');
 
-document.addEventListener('DOMContentLoaded', function() {
-    // --- ハンバーガーメニューの機能 ---
-    const hamburger = document.getElementById('hamburger');
-    const spNav = document.getElementById('sp-nav');
-    const navLinks = document.querySelectorAll('.sp-nav a'); // SPナビのリンクを全て取得
-
-    // ハンバーガーボタンがクリックされた時の処理
-    if (hamburger && spNav) {
-        hamburger.addEventListener('click', function() {
-            this.classList.toggle('is-active');
-            spNav.classList.toggle('is-active');
-        });
-    }
-
-    // SPナビのリンクがクリックされた時にメニューを閉じる
-    navLinks.forEach(function(link) {
-        link.addEventListener('click', function() {
-            hamburger.classList.remove('is-active');
-            spNav.classList.remove('is-active');
-        });
-    });
-
-
-    // --- スクロールでフェードインする機能 ---
-    const targets = document.querySelectorAll('.fade-in-target');
-
-    const observer = new IntersectionObserver(function(entries, observer) {
-        entries.forEach(function(entry) {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('fade-in');
-                observer.unobserve(entry.target);
-            }
-        });
-    });
-
-    targets.forEach(function(target) {
-        observer.observe(target);
-    });
+hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('is-active');
+    spNav.classList.toggle('is-active');
 });
+
+// スプラッシュスクリーンの制御
+window.addEventListener('load', () => {
+    const splashScreen = document.getElementById('splash-screen');
+    const siteWrapper = document.querySelector('.site-wrapper');
+
+    // 2秒後にスプラッシュスクリーンを非表示にする
+    setTimeout(() => {
+        if (splashScreen) {
+            splashScreen.classList.add('is-hidden');
+        }
+        if (siteWrapper) {
+            siteWrapper.classList.remove('is-hidden');
+        }
+    }, 2000); 
+});
+
