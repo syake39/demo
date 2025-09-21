@@ -333,30 +333,34 @@ body {
 
 
 /* --- ACCESSセクション --- */
-#access {
+.access-address, .access-train {
     text-align: center;
+    margin-bottom: 20px;
 }
-.access-info {
-    text-align: center;
-    margin-bottom: 30px;
-}
-.access-map {
+.map-container {
+    margin: 30px 0;
+    position: relative;
     width: 100%;
-    max-width: 400px;
-    height: 300px; /* 地図の高さを指定 */
-    display: block;
-    margin: 0 auto;
-    border: 1px solid #eee;
+    height: 250px; /* 高さを調整 */
+}
+.map-container iframe {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border:0;
 }
 .access-photos {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 30px;
+    margin-top: 20px;
 }
 .access-photo {
-    width: 48%;
-    max-width: 180px;
+    width: 45%; /* サイズを縮小 */
+    max-width: 160px; /* 最大幅も縮小 */
+    height: auto;
 }
 
 /* --- INSTAGRAMセクション --- */
@@ -378,47 +382,40 @@ body {
 
 
 /* --- FAQセクション --- */
-#faq {
-    text-align: center;
-}
 .faq-image {
     width: 100%;
-    max-width: 450px;
+    height: auto;
     display: block;
     margin: 0 auto;
 }
 
 
-/* --- Footer (Contact) --- */
+/* --- フッター --- */
 .footer {
+    padding: 40px 20px;
+    border-top: 1px solid #ddd;
+}
+
+.contact-section, .inquiry-section {
     text-align: center;
 }
-.contact-text {
-    margin-bottom: 20px;
+
+.contact-section {
+    margin-bottom: 40px;
 }
-.contact-username {
-    margin-bottom: 20px;
-}
-.contact-insta-link {
-    display: inline-block;
-    margin-bottom: 20px; /* アイコンとボタンの間に余白を追加 */
-}
-.contact-insta-icon {
-    width: 50px;
-    height: auto;
-}
-.contact-title {
+
+.contact-title, .inquiry-section .section-title {
     /* 他のタイトルとデザインを統一 */
     font-size: 1.8rem;
     margin-bottom: 30px;
     text-align: center;
     position: relative;
     display: inline-block;
-    /* 中央揃えのためのプロパティを追加 */
-    left: 50%;
-    transform: translateX(-50%);
+    /* 中央揃えのためのプロパティを削除し、親要素のtext-align:centerに委ねる */
+    left: auto;
+    transform: none;
 }
-.contact-title::after {
+.contact-title::after, .inquiry-section .section-title::after {
     content: '';
     display: block;
     width: 100%;
@@ -438,7 +435,7 @@ body {
     margin: 15px auto;
 }
 .contact-icon {
-    width: 35px;
+    width: 30px; /* サイズを縮小 */
     height: auto;
     margin-bottom: 15px; /* ボタンとの余白を追加 */
 }
@@ -455,15 +452,11 @@ body {
     color: var(--bg-color);
 }
 .inquiry-section {
-    text-align: center;
     padding: 30px 20px;
     border-top: 1px solid #eee;
 }
 .inquiry-section .section-title {
     margin-bottom: 15px;
-    /* 念のため中央揃えのプロパティを再確認 */
-    left: 50%;
-    transform: translateX(-50%);
 }
 .inquiry-section p {
     margin-bottom: 20px;
@@ -481,9 +474,4 @@ body {
 .inquiry-button:hover {
     opacity: 0.8;
 }
-
-
-
-
-
 
