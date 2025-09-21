@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お知らせ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="site-wrapper">
+        <main>
+            <div id="post-content" class="content-section post-content">
+                <p class="text-center">読み込み中...</p>
+            </div>
+            <div class="text-center mt-8">
+                <a href="index.html" class="back-link">トップページに戻る</a>
+            </div>
+        </main>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getFirestore, doc, getDoc } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : { apiKey: "DUMMY_KEY", authDomain: "DUMMY_DOMAIN", projectId: "DUMMY_PROJECT_ID" };
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const auth = getAuth(app);
+
+        const postContainer = document.getElementById('post-content');
+
+        const getPostIdFromUrl = () => {
+            const params = new URLSearchParams(window.location.search);
+            return params.get('id');
+        };
+
+        const getPostDetails = async (postId) => {
+            if (!postId) {
+                postContainer.innerHTML = '<p class="text-center text-red-500">記事が見つかりません。</p>';
+                return;
+            }
+            
+            const postDocRef = doc(db, `artifacts/${appId}/public/data/posts`, postId);
+            
+            try {
+                const docSnap = await getDoc(postDocRef);
+                if (docSnap.exists()) {
+                    const post = docSnap.data();
+                    const postDate = post.createdAt ? new Date(post.createdAt.seconds * 1000).toLocaleString('ja-JP') : '';
+                    
+                    document.title = post.title; // ページのタイトルをお知らせのタイトルに変更
+                    
+                    postContainer.innerHTML = `
+                        <h1 class="post-title">${escapeHTML(post.title)}</h1>
+                        <p class="post-date">${escapeHTML(postDate)}</p>
+                        <div class="post-body">
+                            ${escapeHTML(post.content).replace(/\n/g, '<br>')}
+                        </div>
+                    `;
+                } else {
+                    postContainer.innerHTML = '<p class="text-center text-red-500">記事が見つかりません。</p>';
+                }
+            } catch (error) {
+                console.error("記事の取得中にエラー:", error);
+                postContainer.innerHTML = '<p class="text-center text-red-500">記事の読み込みに失敗しました。</p>';
+            }
+        };
+
+        const escapeHTML = (str) => {
+            if (!str) return '';
+            return str.replace(/[&<>"']/g, (match) => ({'&': '&amp;','<': '&lt;','>': '&gt;','"': '&quot;',"'": '&#39;'})[match]);
+        };
+        
+        const startApp = async () => {
+             try {
+                if (typeof __initial_auth_token !== 'undefined' && __initial_auth_token) {
+                    await signInWithCustomToken(auth, __initial_auth_token);
+                } else {
+                    await signInAnonymously(auth);
+                }
+                const postId = getPostIdFromUrl();
+                await getPostDetails(postId);
+            } catch (error) {
+                console.error("Authentication failed:", error);
+            }
+        };
+
+        startApp();
+    </script>
+</body>
+</html>
+
