@@ -122,7 +122,7 @@ body {
     justify-content: center;
     align-items: center;
     z-index: 200;
-    transition: opacity 0.5s, visibility 0.5s;
+    transition: opacity 0.5s; /* アニメーションをopacityのみに修正 */
 }
 #splash-screen img {
     max-width: 80%;
@@ -247,10 +247,10 @@ body {
 .food-section, .drink-section {
     margin-bottom: 50px;
 }
-.food-image {
+.food-image, .drink-image {
     display: block;
     width: 90%;
-    max-width: 400px;
+    max-width: 350px;
     margin: 20px auto;
 }
 
@@ -359,15 +359,16 @@ body {
 }
 .access-photo {
     width: 48%;
-    max-width: 200px;
+    max-width: 180px;
     height: auto;
 }
 
 /* --- INSTAGRAMセクション --- */
 .instagram-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
     gap: 10px;
+    margin-top: 30px;
 }
 .instagram-post {
     width: 100%;
@@ -375,7 +376,8 @@ body {
 }
 /* Instagram埋め込みのスタイル調整 */
 .instagram-media {
-    margin: 0 !important;
+    margin: 0 auto !important; /* 中央寄せ */
+    max-width: 100% !important;
 }
 
 
@@ -412,8 +414,8 @@ body {
     margin: 15px auto;
 }
 .contact-icon {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: auto;
     margin-bottom: 15px; /* ボタンとの余白を追加 */
 }
 .contact-button {
