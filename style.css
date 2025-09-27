@@ -117,19 +117,20 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: var(--bg-color);
+    background-color: #fff;
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 200;
-    transition: opacity 0.5s; /* アニメーションをopacityのみに修正 */
+    transition: opacity 0.5s ease-out;
+    opacity: 1;
+}
+#splash-screen.is-hidden {
+    display: none;
 }
 #splash-screen img {
     max-width: 80%;
     max-height: 80%;
-}
-.is-hidden {
-    display: none;
 }
 
 
@@ -157,7 +158,7 @@ body {
     height: auto;
 }
 .hero__title {
-    font-family: 'Shippori Mincho', serif; /* 明朝体 */
+    font-family: 'Shippori Mincho', serif; /* 明朝体に戻します */
     font-weight: 400; /* 細いフォントウェイト */
     font-size: 2rem; /* 文字サイズを調整 */
     line-height: 1.7; /* 文字間隔を調整 */
@@ -183,25 +184,29 @@ body {
 /* --- コンテンツセクション共通 --- */
 .content-section {
     padding: 60px 20px;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
     border-top: 1px solid #ddd;
+    text-align: center; /* セクション内の要素を中央揃えに */
 }
 .section-title {
+    font-family: var(--font-heading);
     font-size: 1.8rem;
     margin-bottom: 30px;
-    text-align: center;
     position: relative;
-    display: inline-block;
-    left: 50%;
-    transform: translateX(-50%);
+    display: inline-block; /* 下線を文字幅に合わせるため */
 }
+
 .section-title::after {
     content: '';
     display: block;
-    width: 100%;
+    width: 100%; /* 文字幅に合わせる */
     height: 3px;
     background-color: #f5d142;
     margin-top: 5px;
 }
+
 .section-subtitle {
     text-align: center;
     margin-bottom: 40px;
@@ -219,7 +224,9 @@ body {
 #games .section-subtitle {
     text-align: left; /* 左揃えに変更 */
     font-size: 0.95rem; /* 文字サイズを少し小さくして改行を調整 */
+    display: inline-block; /* 中央配置のため */
 }
+
 .games__images {
     display: flex;
     justify-content: center;
@@ -244,104 +251,58 @@ body {
 
 
 /* --- MENUセクション --- */
-.food-section, .drink-section {
-    margin-bottom: 50px;
-}
 .food-image, .drink-image {
-    display: block;
     width: 90%;
     max-width: 350px;
-    margin: 20px auto;
+    height: auto;
+    display: block;
+    margin: 10px auto 30px;
 }
 
 /* --- TICKETセクション --- */
-.ticket-link {
-    display: block;
-    text-align: center;
-}
 .ticket-image {
-    max-width: 100%;
+    width: 100%;
+    max-width: 400px;
     height: auto;
 }
 .ticket-notes {
     margin-top: 20px;
     font-size: 0.8rem;
     color: #555;
-    text-align: center;
-}
-.ticket-notes p {
-    margin: 5px 0;
+    text-align: left;
+    display: inline-block;
 }
 
 /* --- お知らせセクション --- */
 .news-list {
-    border-top: 1px solid #eee;
-    border-bottom: 1px solid #eee;
+    list-style: none;
+    padding: 0;
+    text-align: left;
+    display: inline-block;
 }
 .news-item {
-    display: block;
-    padding: 15px 10px;
-    border-bottom: 1px solid #eee;
+    border-bottom: 1px dotted #ccc;
+    padding: 15px 0;
+}
+.news-item a {
     text-decoration: none;
     color: var(--text-color);
-    transition: background-color 0.3s;
-}
-.news-item:last-child {
-    border-bottom: none;
-}
-.news-item:hover {
-    background-color: #f9f9f9;
 }
 .news-date {
-    margin-right: 20px;
-    color: #777;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
+    color: #888;
+    margin-right: 15px;
 }
-.news-title {
-    font-weight: bold;
-}
-
-/* お知らせ記事ページ */
-.post-content {
-    padding-top: 40px;
-    padding-bottom: 40px;
-}
-.post-title {
-    font-size: 1.8rem;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-.post-date {
-    color: #777;
-    margin-bottom: 30px;
-}
-.post-body {
-    line-height: 2;
-}
-.back-link {
-    display: inline-block;
-    padding: 10px 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    text-decoration: none;
-    color: #333;
-    transition: background-color 0.3s;
-}
-.back-link:hover {
-    background-color: #f0f0f0;
-}
-
 
 /* --- ACCESSセクション --- */
 .access-address, .access-train {
-    text-align: center;
     margin-bottom: 20px;
 }
 .map-container {
+    margin: 30px 0;
     position: relative;
     width: 100%;
-    padding-top: 75%; /* 4:3のアスペクト比を維持 */
-    margin: 30px 0;
+    padding-top: 75%; /* アスペクト比4:3を維持 */
 }
 .map-container iframe {
     position: absolute;
@@ -349,13 +310,12 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    border:0;
 }
 .access-photos {
     display: flex;
     justify-content: center;
     gap: 10px;
-    margin-top: 20px;
+    margin-top: 30px;
 }
 .access-photo {
     width: 45%;
@@ -363,115 +323,90 @@ body {
     height: auto;
 }
 
-/* --- INSTAGRAMセクション --- */
+/* --- Instagramセクション --- */
 .instagram-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
     margin-top: 30px;
 }
 .instagram-post {
     width: 100%;
-    overflow: hidden;
-}
-/* Instagram埋め込みのスタイル調整 */
-.instagram-media {
-    margin: 0 auto !important; /* 中央寄せ */
-    max-width: 100% !important;
 }
 
 
 /* --- FAQセクション --- */
 .faq-image {
     width: 100%;
+    max-width: 500px;
     height: auto;
-    display: block;
-    margin: 0 auto;
 }
-
 
 /* --- フッター --- */
 .footer {
     padding: 40px 20px;
     border-top: 1px solid #ddd;
 }
-
 .contact-section, .inquiry-section {
     text-align: center;
-}
-
-.contact-section {
     margin-bottom: 40px;
 }
-
-.contact-title, .inquiry-section .section-title {
-    /* 他のタイトルとデザインを統一 */
-    font-size: 1.8rem;
-    margin-bottom: 30px;
-    text-align: center;
-    position: relative;
-    display: inline-block;
-    /* 中央揃えのためのプロパティを削除し、親要素のtext-align:centerに委ねる */
-    left: auto;
-    transform: none;
-}
-.contact-title::after, .inquiry-section .section-title::after {
-    content: '';
-    display: block;
-    width: 100%;
-    height: 3px;
-    background-color: #f5d142;
-    margin-top: 5px;
-}
-.contact-body p {
-    margin: 5px 0;
+.contact-body {
+    margin-top: 20px;
 }
 .contact-username {
     font-weight: bold;
-    margin: 15px 0;
-}
-.contact-icon-link {
-    display: block;
-    margin: 15px auto;
+    margin: 10px 0;
 }
 .contact-icon {
     width: 30px;
     height: auto;
-    margin-bottom: 15px; /* ボタンとの余白を追加 */
+    margin-bottom: 20px; /* ボタンとの余白を追加 */
 }
-.contact-button {
+.contact-button, .inquiry-button {
     display: inline-block;
-    padding: 10px 40px;
+    padding: 10px 30px;
     border: 1px solid var(--text-color);
     text-decoration: none;
     color: var(--text-color);
     transition: background-color 0.3s, color 0.3s;
 }
-.contact-button:hover {
+.contact-button:hover, .inquiry-button:hover {
     background-color: var(--text-color);
     color: var(--bg-color);
 }
-.inquiry-section {
-    padding: 30px 20px;
-    border-top: 1px solid #eee;
+
+
+/* --- 枯れ葉アニメーション --- */
+#falling-leaves {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none; /* アニメーションがクリックの邪魔をしないようにします */
+    z-index: 101; /* コンテンツより手前に表示します */
+    overflow: hidden;
 }
-.inquiry-section .section-title {
-    margin-bottom: 15px;
+
+.leaf {
+    position: absolute;
+    top: -50px; /* 画面の上からスタートします */
+    font-size: 2rem;
+    animation-name: fall;
+    animation-timing-function: linear;
+    animation-iteration-count: infinite;
 }
-.inquiry-section p {
-    margin-bottom: 20px;
-}
-.inquiry-button {
-    display: inline-block;
-    background-color: #333;
-    color: #fff;
-    padding: 12px 30px;
-    text-decoration: none;
-    font-weight: bold;
-    border-radius: 5px;
-    transition: opacity 0.3s;
-}
-.inquiry-button:hover {
-    opacity: 0.8;
+
+/* 葉が落ちるアニメーションの定義 */
+@keyframes fall {
+    0% {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(100vh) rotate(720deg); /* 回転しながら画面下まで落ちます */
+        opacity: 0;
+    }
 }
 
